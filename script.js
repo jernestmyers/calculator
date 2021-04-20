@@ -1,6 +1,3 @@
-// let inputs = [-2.125, -5.2137];
-// console.log(inputs);
-
 // add function
 function add(array) {
     const sum = array.reduce((total,num) => {
@@ -42,12 +39,24 @@ function multiply(array) {
     return product;
 }
 
+// operate function
 function operate(num1, num2, operator) {
     const inputs = [];
     inputs.push(num1);
     inputs.push(num2);
-    console.log(inputs);
+    // console.log(inputs);
     if (operator === `add`) {
-        return add(inputs);
+        let sum = add(inputs);
+        // inputs[0] = sum;
+        // inputs.pop();
+        // console.log(inputs);
+        return sum;
+    } else if (operator === `subtract`) {
+        return subtract(inputs);
+    } else if (operator === `multiply`) {
+        return multiply(inputs);
+    } else if (operator === `divide`) {
+        return divide(inputs);
     }
+    // console.log(inputs);
 }
