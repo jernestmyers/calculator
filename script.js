@@ -35,7 +35,7 @@ function multiply(array) {
         return total * num;
     }, 1);
     if ((product * 2) % 2 !== 0) {
-        return product.toFixed(12);
+        return product.toFixed(5);
     }
     return product;
 }
@@ -162,14 +162,14 @@ clearAll.addEventListener(`click`, () => {
 // add listener to decimal point
 const decimal = document.querySelector(`#decimal`);
 decimal.addEventListener(`click`, () => {
-    if (object.decimalUsed === false) {
+    if (object.decimalUsed === false && (Number(display.textContent) * 2) % 2 === 0) {
         display.textContent += decimal.value;
         displayContainer.appendChild(display);
-        object.decimalUsed = true;
     }
-    if (Number(display.textContent) === object.numbers[0]) {
-        display.textContent = `0.`;
-    }
+    // if (Number(display.textContent) === object.numbers[0] && (Number(display.textContent) * 2) % 2 !== 0) {
+    //     display.textContent = `0.`;
+    // }
+    object.decimalUsed = true;
     object.operatorSelected = false;
     object.equalsSelected = false;
 })
