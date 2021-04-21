@@ -24,7 +24,7 @@ function divide(array) {
         return total / num;
     });
     if ((quotient * 2) % 2 !== 0) {
-        return quotient.toFixed(12);
+        return quotient.toFixed(5);
     }
     return quotient;
 }
@@ -67,7 +67,8 @@ const object = {
     numbers: [],
     operators: [],
     operatorSelected: false,
-    equalsSelected: false
+    equalsSelected: false,
+    decimalUsed: false
 }
 
 
@@ -78,6 +79,9 @@ const display = document.querySelector(`#display`);
 
 digits.forEach((digits) => {
     digits.addEventListener(`click`, () => {
+        if (display.textContent === `0`) {
+            display.textContent = ``;
+        }
         if (Number(display.textContent) === object.numbers[0]) {
             display.textContent = ``;
         }
@@ -96,9 +100,11 @@ operators.forEach((operators) => {
         object.numbers.push(Number(display.textContent));
         object.operators.push(operators.id);
         object.operatorSelected = true;
+        object.decimalUsed = false;
         console.log(object);
         } else if (object.operators[0] !== undefined && object.numbers[0] !== undefined && object.operatorSelected === false) {
             object.numbers.push(Number(display.textContent));
+            object.decimalUsed = false;
             display.textContent = operate(object.numbers[0], object.numbers[1], object.operators[0]);
             object.numbers.shift();
             object.numbers[0] = Number(display.textContent);
@@ -125,6 +131,7 @@ equalsButton.addEventListener(`click`, () => {
     // }
     if (object.numbers.length === 1 && object.operators !== undefined && object.equalsSelected === false) {
         object.numbers.push(Number(display.textContent));
+        object.decimalUsed = false;
         display.textContent = operate(object.numbers[0], object.numbers[1], object.operators[0]);
         console.log(object);
         object.numbers.shift();
@@ -138,4 +145,31 @@ equalsButton.addEventListener(`click`, () => {
         object.numbers.shift();
         object.numbers[0] = Number(display.textContent);
     }
+})
+
+// add listener to clear all button
+const clearAll = document.querySelector(`#clear`);
+clearAll.addEventListener(`click`, () => {
+    display.textContent = `0`;
+    object.numbers = [];
+    object.operators = [];
+    object.operatorSelected = false;
+    object.equalsSelected = false;
+    object.decimalUsed = false;
+    console.log(object);
+})
+
+// add listener to decimal point
+const decimal = document.querySelector(`#decimal`);
+decimal.addEventListener(`click`, () => {
+    if (object.decimalUsed === false) {
+        display.textContent += decimal.value;
+        displayContainer.appendChild(display);
+        object.decimalUsed = true;
+    }
+    if (Number(display.textContent) === object.numbers[0]) {
+        display.textContent = `0.`;
+    }
+    object.operatorSelected = false;
+    object.equalsSelected = false;
 })
