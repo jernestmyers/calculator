@@ -65,7 +65,9 @@ function operate(num1, num2, operator) {
 // create object
 const object = {
     numbers: [],
-    operators: []
+    operators: [],
+    operatorSelected: false,
+    equalsSelected: false
 }
 
 
@@ -79,6 +81,8 @@ digits.forEach((digits) => {
         if (Number(display.textContent) === object.numbers[0]) {
             display.textContent = ``;
         }
+        object.operatorSelected = false;
+        object.equalsSelected = false;
         display.textContent += digits.id;
         displayContainer.appendChild(display);
     })
@@ -88,17 +92,50 @@ digits.forEach((digits) => {
 const operators = document.querySelectorAll(`.operator`);
 operators.forEach((operators) => {
     operators.addEventListener(`click`, () => {
-        if (object.operators[0] === undefined) {
+        if (object.operators[0] === undefined && object.equalsSelected === false) {
         object.numbers.push(Number(display.textContent));
         object.operators.push(operators.id);
-        } else if (object.operators[0] !== undefined && object.numbers[0] !== undefined) {
+        object.operatorSelected = true;
+        console.log(object);
+        } else if (object.operators[0] !== undefined && object.numbers[0] !== undefined && object.operatorSelected === false) {
             object.numbers.push(Number(display.textContent));
             display.textContent = operate(object.numbers[0], object.numbers[1], object.operators[0]);
             object.numbers.shift();
             object.numbers[0] = Number(display.textContent);
             console.log(object);
             object.operators.push(operators.id);
-            object.operators.shift();            
+            object.operators.shift();
+            object.operatorSelected = true;
+            object.equalsSelected = false;      
+        } else if (object.operators[0] === undefined && object.numbers[0] !== undefined) {
+            console.log(`here`);
+            object.operators.push(operators.id);
+            object.operatorSelected = true;
+            console.log(object);
         }
     })
+})
+
+// add listener to equals sign
+const equalsButton = document.querySelector(`#equals`);
+equalsButton.addEventListener(`click`, () => {
+    // if (object.numbers[1] === undefined) {
+    // object.numbers.push(Number(display.textContent));
+    // console.log(object);
+    // }
+    if (object.numbers.length === 1 && object.operators !== undefined && object.equalsSelected === false) {
+        object.numbers.push(Number(display.textContent));
+        display.textContent = operate(object.numbers[0], object.numbers[1], object.operators[0]);
+        console.log(object);
+        object.numbers.shift();
+        object.numbers[0] = Number(display.textContent);
+        object.operators.shift();
+        object.equalsSelected = true;
+        object.operatorSelected = false;
+    } else if (object.numbers.length === 2) {
+        display.textContent = operate(object.numbers[0], object.numbers[1], object.operators[0]);
+        console.log(object);
+        object.numbers.shift();
+        object.numbers[0] = Number(display.textContent);
+    }
 })
