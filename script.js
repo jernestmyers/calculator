@@ -3,6 +3,7 @@ function add(array) {
     const sum = array.reduce((total,num) => {
         return total + num;
     }, 0);
+    console.log(sum);
     return sum;
 }
 
@@ -44,7 +45,7 @@ function operate(num1, num2, operator) {
     const inputs = [];
     inputs.push(num1);
     inputs.push(num2);
-    // console.log(inputs);
+    console.log(inputs);
     if (operator === `add`) {
         let sum = add(inputs);
         // inputs[0] = sum;
@@ -60,3 +61,44 @@ function operate(num1, num2, operator) {
     }
     // console.log(inputs);
 }
+
+// create object
+const object = {
+    numbers: [],
+    operators: []
+}
+
+
+// add listeners to digits
+const digits = document.querySelectorAll(`.digit`);
+const displayContainer = document.querySelector(`#display-container`);
+const display = document.querySelector(`#display`);
+
+digits.forEach((digits) => {
+    digits.addEventListener(`click`, () => {
+        if (Number(display.textContent) === object.numbers[0]) {
+            display.textContent = ``;
+        }
+        display.textContent += digits.id;
+        displayContainer.appendChild(display);
+    })
+})
+
+// add listeners to operators
+const operators = document.querySelectorAll(`.operator`);
+operators.forEach((operators) => {
+    operators.addEventListener(`click`, () => {
+        if (object.operators[0] === undefined) {
+        object.numbers.push(Number(display.textContent));
+        object.operators.push(operators.id);
+        } else if (object.operators[0] !== undefined && object.numbers[0] !== undefined) {
+            object.numbers.push(Number(display.textContent));
+            display.textContent = operate(object.numbers[0], object.numbers[1], object.operators[0]);
+            object.numbers.shift();
+            object.numbers[0] = Number(display.textContent);
+            console.log(object);
+            object.operators.push(operators.id);
+            object.operators.shift();            
+        }
+    })
+})
