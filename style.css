@@ -1,8 +1,8 @@
 .calculator-container {
     display: grid;
     margin: auto;
-    height: 600px;
-    width: 500px;
+    height: 500px;
+    width: 400px;
     border: 1px solid black;
     background-color: yellow;
 }
@@ -20,7 +20,7 @@ p {
 #display {
     margin: auto;
     width: 95%;
-    height: 150px;
+    height: 100px;
     background-color: gray;
     border: 1px solid black;
 }
@@ -35,6 +35,6 @@ p {
 
 button {
     height: 75px;
-    width: 100px;
+    width: 85px;
     font-size: 30px;
 }
