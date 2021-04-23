@@ -120,34 +120,36 @@ digits.forEach((digits) => {
 const operators = document.querySelectorAll(`.operator`);
 operators.forEach((operators) => {
     operators.addEventListener(`click`, () => {
-        if (calculatorObject.operators[0] === undefined && calculatorObject.equalsSelected === false) {
-            calculatorObject.numbers.push(Number(display.textContent));
-            calculatorObject.operators.push(operators.id);
-            calculatorObject.operatorSelected = true;
-            calculatorObject.decimalUsed = false;
-            // console.log(`first if in operator fxn`);
-            // console.log(calculatorObject);
-        } else if (calculatorObject.operators[0] !== undefined && calculatorObject.numbers[0] !== undefined && calculatorObject.operatorSelected === false) {
-            calculatorObject.numbers.push(Number(display.textContent));
-            calculatorObject.decimalUsed = false;
-            display.textContent = operate(calculatorObject.numbers[0], calculatorObject.numbers[1], calculatorObject.operators[0]);
-            calculatorObject.numbers.shift();
-            calculatorObject.numbers[0] = Number(display.textContent);
-            calculatorObject.operators.push(operators.id);
-            calculatorObject.operators.shift();
-            calculatorObject.operatorSelected = true;
-            calculatorObject.equalsSelected = false;
-            // console.log(`else if #1 in operator fxn`);
-            // console.log(calculatorObject);
-        } else if (calculatorObject.operators[0] === undefined && calculatorObject.numbers[0] !== undefined) { // this else if works with the equals fxn
-            calculatorObject.operators.push(operators.id);
-            calculatorObject.operatorSelected = true;
-            // console.log(`else if #2 in operator fxn`);
-            // console.log(calculatorObject);
-        }
-        calculatorObject.digitSelected = false;
-        if (display.textContent === `ERROR`) {
-            calculatorObject.errorThrown = true;
+        if (calculatorObject.errorThrown === false && display.textContent !== `0.`) {
+            if (calculatorObject.operators[0] === undefined && calculatorObject.equalsSelected === false) {
+                calculatorObject.numbers.push(Number(display.textContent));
+                calculatorObject.operators.push(operators.id);
+                calculatorObject.operatorSelected = true;
+                calculatorObject.decimalUsed = false;
+                console.log(`first if in operator fxn`);
+                // console.log(calculatorObject);
+            } else if (calculatorObject.operators[0] !== undefined && calculatorObject.numbers[0] !== undefined && calculatorObject.operatorSelected === false) {
+                calculatorObject.numbers.push(Number(display.textContent));
+                calculatorObject.decimalUsed = false;
+                display.textContent = operate(calculatorObject.numbers[0], calculatorObject.numbers[1], calculatorObject.operators[0]);
+                calculatorObject.numbers.shift();
+                calculatorObject.numbers[0] = Number(display.textContent);
+                calculatorObject.operators.push(operators.id);
+                calculatorObject.operators.shift();
+                calculatorObject.operatorSelected = true;
+                calculatorObject.equalsSelected = false;
+                console.log(`else if #1 in operator fxn`);
+                // console.log(calculatorObject);
+            } else if (calculatorObject.operators[0] === undefined && calculatorObject.numbers[0] !== undefined) { // this else if works with the equals fxn
+                calculatorObject.operators.push(operators.id);
+                calculatorObject.operatorSelected = true;
+                console.log(`else if #2 in operator fxn`);
+                // console.log(calculatorObject);
+            }
+            calculatorObject.digitSelected = false;
+            if (display.textContent === `ERROR`) {
+                calculatorObject.errorThrown = true;
+            }
         }
         // console.log(`end of operators fxn: ${calculatorObject}`);
     })
@@ -156,7 +158,7 @@ operators.forEach((operators) => {
 // add listener to equals sign
 const equalsButton = document.querySelector(`#equals`);
 equalsButton.addEventListener(`click`, () => {
-    if (calculatorObject.errorThrown === false) {
+    if (calculatorObject.errorThrown === false && display.textContent !== `0.`) {
         if (calculatorObject.numbers.length === 1 && calculatorObject.operators !== undefined && calculatorObject.equalsSelected === false && calculatorObject.digitSelected === true) {
             calculatorObject.numbers.push(Number(display.textContent));
             calculatorObject.decimalUsed = false;
@@ -166,13 +168,13 @@ equalsButton.addEventListener(`click`, () => {
             calculatorObject.operators.shift();
             calculatorObject.equalsSelected = true;
             calculatorObject.operatorSelected = false;
-            // console.log(`first if in equals fxn`);
+            console.log(`first if in equals fxn`);
             // console.log(calculatorObject);
         } else if (calculatorObject.numbers.length === 2) {
             display.textContent = operate(calculatorObject.numbers[0], calculatorObject.numbers[1], calculatorObject.operators[0]);
             calculatorObject.numbers.shift();
             calculatorObject.numbers[0] = Number(display.textContent);
-            // console.log(`else if in equals`);
+            console.log(`else if in equals`);
             // console.log(calculatorObject);
         }
         if (display.textContent === `ERROR`) {
@@ -201,7 +203,6 @@ const decimal = document.querySelector(`#decimal`);
 decimal.addEventListener(`click`, () => {
     if (calculatorObject.errorThrown === false) {
         const decimalCheck = Array.from(display.textContent);
-        // console.log(decimalCheck.includes(`.`));
         calculatorObject.digitSelected = true;
         if (decimalCheck.includes(`.`) !== true && (calculatorObject.equalsSelected !== true && calculatorObject.operatorSelected !== true)) {
             display.textContent += decimal.value;
@@ -219,10 +220,18 @@ decimal.addEventListener(`click`, () => {
 //add listener to backspace
 const backspace = document.querySelector(`#backspace`);
 backspace.addEventListener(`click`, () => {
-    if (calculatorObject.digitSelected === true) {
-        console.log(`backspace`);
+    if (calculatorObject.digitSelected === true && display.textContent.length >= 1) {
+        display.textContent = display.textContent.slice(0, (display.textContent.length - 1));
+        console.log(display.textContent);
     }
 })
+// cannot allow user to delete everything and still be able to use equals sign or operator
+// because then it will push nothing to the array and potentially run operate fxn
+// to prevent this, could check length of display.textContent
+// minimum length of textContent is 1 for integers but 3 for decimals less than one, like 0.5
+// if (display.textContent.length >= 1)
 
 
-// bug #1 pressing a number, operator, then equals returns the number double in whatever operator selected. so 5, multiply, equals returns 25.
+
+// CLEARED %%bug%% pressing a number, operator, then equals returns the number double in whatever operator selected. so 5, multiply, equals returns 25.
+// CLEARED %%bug%% program continues if user presses decimal for to produce "0." but should still require user to input another digit
