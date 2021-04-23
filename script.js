@@ -30,8 +30,6 @@ function divide(array) {
         return quotient.toExponential(4); 
     }
     if (quotientCheck.length > 10 && quotient > 99999) {
-        // console.log(quotient);
-        // console.log(quotient.toExponential(4));
         return quotient.toExponential(4);
     }
     if (quotientCheck.length > 10 && quotient < 99999) {
@@ -99,11 +97,11 @@ digits.forEach((digits) => {
         if (calculatorObject.errorThrown === false) {
             if (display.textContent === `0` || calculatorObject.digitSelected === false) {
                 display.textContent = ``;
-                console.log(`if #1 in digits fxn`);
-                console.log(calculatorObject);
+                // console.log(`if #1 in digits fxn`);
+                // console.log(calculatorObject);
             }
             if (calculatorObject.operatorSelected === false && calculatorObject.operators[0] === undefined) {
-                console.log(`you are here`);
+                // console.log(`you are here`);
                 calculatorObject.numbers = [];
                 calculatorObject.operators = [];
             }
@@ -112,8 +110,8 @@ digits.forEach((digits) => {
             calculatorObject.equalsSelected = false;
             display.textContent += digits.id;
             displayContainer.appendChild(display);
-            console.log(`end of digits fxn`);
-            console.log(calculatorObject);
+            // console.log(`end of digits fxn`);
+            // console.log(calculatorObject);
         }
     })
 })
@@ -127,8 +125,8 @@ operators.forEach((operators) => {
             calculatorObject.operators.push(operators.id);
             calculatorObject.operatorSelected = true;
             calculatorObject.decimalUsed = false;
-            console.log(`first if in operator fxn`);
-            console.log(calculatorObject);
+            // console.log(`first if in operator fxn`);
+            // console.log(calculatorObject);
         } else if (calculatorObject.operators[0] !== undefined && calculatorObject.numbers[0] !== undefined && calculatorObject.operatorSelected === false) {
             calculatorObject.numbers.push(Number(display.textContent));
             calculatorObject.decimalUsed = false;
@@ -139,19 +137,19 @@ operators.forEach((operators) => {
             calculatorObject.operators.shift();
             calculatorObject.operatorSelected = true;
             calculatorObject.equalsSelected = false;
-            console.log(`else if #1 in operator fxn`);
-            console.log(calculatorObject);
+            // console.log(`else if #1 in operator fxn`);
+            // console.log(calculatorObject);
         } else if (calculatorObject.operators[0] === undefined && calculatorObject.numbers[0] !== undefined) { // this else if works with the equals fxn
             calculatorObject.operators.push(operators.id);
             calculatorObject.operatorSelected = true;
-            console.log(`else if #2 in operator fxn`);
-            console.log(calculatorObject);
+            // console.log(`else if #2 in operator fxn`);
+            // console.log(calculatorObject);
         }
         calculatorObject.digitSelected = false;
         if (display.textContent === `ERROR`) {
             calculatorObject.errorThrown = true;
         }
-        console.log(`end of operators fxn: ${calculatorObject}`);
+        // console.log(`end of operators fxn: ${calculatorObject}`);
     })
 })
 
@@ -159,7 +157,7 @@ operators.forEach((operators) => {
 const equalsButton = document.querySelector(`#equals`);
 equalsButton.addEventListener(`click`, () => {
     if (calculatorObject.errorThrown === false) {
-        if (calculatorObject.numbers.length === 1 && calculatorObject.operators !== undefined && calculatorObject.equalsSelected === false) {
+        if (calculatorObject.numbers.length === 1 && calculatorObject.operators !== undefined && calculatorObject.equalsSelected === false && calculatorObject.digitSelected === true) {
             calculatorObject.numbers.push(Number(display.textContent));
             calculatorObject.decimalUsed = false;
             display.textContent = operate(calculatorObject.numbers[0], calculatorObject.numbers[1], calculatorObject.operators[0]);
@@ -168,21 +166,21 @@ equalsButton.addEventListener(`click`, () => {
             calculatorObject.operators.shift();
             calculatorObject.equalsSelected = true;
             calculatorObject.operatorSelected = false;
-            console.log(`first if in equals fxn`);
-            console.log(calculatorObject);
+            // console.log(`first if in equals fxn`);
+            // console.log(calculatorObject);
         } else if (calculatorObject.numbers.length === 2) {
             display.textContent = operate(calculatorObject.numbers[0], calculatorObject.numbers[1], calculatorObject.operators[0]);
             calculatorObject.numbers.shift();
             calculatorObject.numbers[0] = Number(display.textContent);
-            console.log(`else if in equals`);
-            console.log(calculatorObject);
+            // console.log(`else if in equals`);
+            // console.log(calculatorObject);
         }
         if (display.textContent === `ERROR`) {
             calculatorObject.errorThrown = true;
         }
         calculatorObject.digitSelected = false;
-        console.log(`end of equals fxn`)
-        console.log(calculatorObject);
+        // console.log(`end of equals fxn`)
+        // console.log(calculatorObject);
     }
 })
 
@@ -203,7 +201,7 @@ const decimal = document.querySelector(`#decimal`);
 decimal.addEventListener(`click`, () => {
     if (calculatorObject.errorThrown === false) {
         const decimalCheck = Array.from(display.textContent);
-        console.log(decimalCheck.includes(`.`));
+        // console.log(decimalCheck.includes(`.`));
         calculatorObject.digitSelected = true;
         if (decimalCheck.includes(`.`) !== true && (calculatorObject.equalsSelected !== true && calculatorObject.operatorSelected !== true)) {
             display.textContent += decimal.value;
@@ -217,3 +215,14 @@ decimal.addEventListener(`click`, () => {
         }
     }
 })
+
+//add listener to backspace
+const backspace = document.querySelector(`#backspace`);
+backspace.addEventListener(`click`, () => {
+    if (calculatorObject.digitSelected === true) {
+        console.log(`backspace`);
+    }
+})
+
+
+// bug #1 pressing a number, operator, then equals returns the number double in whatever operator selected. so 5, multiply, equals returns 25.
