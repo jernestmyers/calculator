@@ -38,7 +38,7 @@ function multiply(array) {
     }, 1);
     const productCheck = product.toString();
     if (productCheck.length > 10) {
-        return `ERROR: max reached`;
+        return `ERROR`;
     }
     return product;
 }
@@ -76,15 +76,9 @@ const display = document.querySelector(`#display`);
 
 digits.forEach((digits) => {
     digits.addEventListener(`click`, () => {
-        if (display.textContent === `0`) {
+        if (display.textContent === `0` || calculatorObject.digitSelected === false) {
             display.textContent = ``;
             console.log(`if #1 in digits fxn`);
-            console.log(calculatorObject);
-        }
-        // if (Number(display.textContent) === calculatorObject.numbers[0]) {
-        if (calculatorObject.digitSelected === false) {
-            display.textContent = ``;
-            console.log(`if #2 in digits fxn`);
             console.log(calculatorObject);
         }
         if (calculatorObject.operatorSelected === false && calculatorObject.operators[0] === undefined) {
@@ -181,21 +175,26 @@ clearAll.addEventListener(`click`, () => {
 })
 
 // add listener to decimal point
-// const decimal = document.querySelector(`#decimal`);
-// decimal.addEventListener(`click`, () => {
-//     if (calculatorObject.decimalUsed === false && (Number(display.textContent) * 2) % 2 === 0) {
-//         display.textContent += decimal.value;
-//         displayContainer.appendChild(display);
-//         console.log(`first if in decimal fxn`);
+const decimal = document.querySelector(`#decimal`);
+decimal.addEventListener(`click`, () => {
+    const decimalCheck = Array.from(display.textContent);
+    console.log(decimalCheck.includes(`.`));
+    calculatorObject.digitSelected = true;
+    if (decimalCheck.includes(`.`) !== true && (calculatorObject.equalsSelected !== true && calculatorObject.operatorSelected !== true)) {
+        display.textContent += decimal.value;
+        displayContainer.appendChild(display);
+        // console.log(`first if in decimal fxn`);
 //         console.log(calculatorObject);
-//     }
-//     if (Number(display.textContent) === calculatorObject.numbers[0]) {
-//         display.textContent = `0.`;
-//     }
-//     calculatorObject.decimalUsed = true;
+    }
+    if (display.textContent === `0` || calculatorObject.digitSelected === false) {
+        display.textContent = `0.`;
+    }
+    if (calculatorObject.operatorSelected === true) {
+        display.textContent = `0.`;
+    }
 //     calculatorObject.operatorSelected = false;
 //     calculatorObject.equalsSelected = false;
 //     calculatorObject.digitSelected = false;
 //     console.log(`end of decimal fxn`);
 //     console.log(calculatorObject);
-// })
+})
