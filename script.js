@@ -3,7 +3,6 @@ function add(array) {
     const sum = array.reduce((total,num) => {
         return total + num;
     }, 0);
-    console.log(sum);
     return sum;
 }
 
@@ -24,10 +23,20 @@ function divide(array) {
         return total / num;
     });
     const quotientCheck = quotient.toString();
-    if (quotientCheck.length > 10) {
+    console.log(quotientCheck);
+    console.log(quotientCheck.length);
+    if (quotientCheck.length > 10 && quotient < 1) {
+        console.log(quotient);
+        return quotient.toExponential(4); 
+    }
+    if (quotientCheck.length > 10 && quotient > 99999) {
+        // console.log(quotient);
+        // console.log(quotient.toExponential(4));
+        return quotient.toExponential(4);
+    }
+    if (quotientCheck.length > 10 && quotient < 99999) {
         return quotient.toFixed(5);
     }
-    console.log(quotient);
     return quotient;
 }
 
@@ -38,7 +47,9 @@ function multiply(array) {
     }, 1);
     const productCheck = product.toString();
     if (productCheck.length > 10) {
-        return `ERROR`;
+        console.log(product);
+        console.log(product.toExponential(4));
+        return product.toExponential(4);
     }
     return product;
 }
