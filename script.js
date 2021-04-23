@@ -47,11 +47,7 @@ function operate(num1, num2, operator) {
     inputs.push(num2);
     console.log(inputs);
     if (operator === `add`) {
-        let sum = add(inputs);
-        // inputs[0] = sum;
-        // inputs.pop();
-        // console.log(inputs);
-        return sum;
+        return add(inputs);
     } else if (operator === `subtract`) {
         return subtract(inputs);
     } else if (operator === `multiply`) {
@@ -59,7 +55,6 @@ function operate(num1, num2, operator) {
     } else if (operator === `divide`) {
         return divide(inputs);
     }
-    // console.log(inputs);
 }
 
 // create object
@@ -88,6 +83,11 @@ digits.forEach((digits) => {
             display.textContent = ``;
             console.log(`if #2 in digits fxn`);
             console.log(calculatorObject);
+        }
+        if (calculatorObject.operatorSelected === false && calculatorObject.operators[0] === undefined) {
+            console.log(`you are here`);
+            calculatorObject.numbers = [];
+            calculatorObject.operators = [];
         }
         calculatorObject.operatorSelected = false;
         calculatorObject.equalsSelected = false;
@@ -175,19 +175,20 @@ clearAll.addEventListener(`click`, () => {
 
 // add listener to decimal point
 const decimal = document.querySelector(`#decimal`);
-// decimal.addEventListener(`click`, () => {
-//     if (calculatorObject.decimalUsed === false && (Number(display.textContent) * 2) % 2 === 0) {
-//         display.textContent += decimal.value;
-//         // displayContainer.appendChild(display);
-//         calculatorObject.decimalUsed = true;
-//         console.log(`first if in decimal fxn`);
-//         console.log(calculatorObject);
-//     }
-//     if (Number(display.textContent) === calculatorObject.numbers[0]) {
-//         display.textContent = `0.`;
-//     }
-//     calculatorObject.operatorSelected = false;
-//     calculatorObject.equalsSelected = false;
-//     console.log(`end of decimal fxn`);
-//     console.log(calculatorObject);
-// })
+decimal.addEventListener(`click`, () => {
+    if (calculatorObject.decimalUsed === false && (Number(display.textContent) * 2) % 2 === 0) {
+        display.textContent += decimal.value;
+        displayContainer.appendChild(display);
+        calculatorObject.decimalUsed = true;
+        console.log(`first if in decimal fxn`);
+        console.log(calculatorObject);
+    }
+    if (Number(display.textContent) === calculatorObject.numbers[0]) {
+        display.textContent = `0.`;
+        calculatorObject.decimalUsed = true;
+    }
+    calculatorObject.operatorSelected = false;
+    calculatorObject.equalsSelected = false;
+    console.log(`end of decimal fxn`);
+    console.log(calculatorObject);
+})
