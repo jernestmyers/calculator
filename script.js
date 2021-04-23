@@ -189,11 +189,11 @@ decimal.addEventListener(`click`, () => {
     if (display.textContent === `0` || calculatorObject.digitSelected === false) {
         display.textContent = `0.`;
     }
-    if (calculatorObject.operatorSelected === true) {
+    if (calculatorObject.operatorSelected === true || calculatorObject.equalsSelected === true) {
         display.textContent = `0.`;
     }
 //     calculatorObject.operatorSelected = false;
-//     calculatorObject.equalsSelected = false;
+//      calculatorObject.equalsSelected = false;
 //     calculatorObject.digitSelected = false;
 //     console.log(`end of decimal fxn`);
 //     console.log(calculatorObject);
