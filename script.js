@@ -217,7 +217,7 @@ decimal.addEventListener(`click`, () => {
     }
 })
 
-//add listener to backspace
+// add listener to backspace
 const backspace = document.querySelector(`#backspace`);
 backspace.addEventListener(`click`, () => {
     if (calculatorObject.digitSelected === true && display.textContent.length >= 1) {
@@ -230,6 +230,18 @@ backspace.addEventListener(`click`, () => {
 // to prevent this, could check length of display.textContent
 // minimum length of textContent is 1 for integers but 3 for decimals less than one, like 0.5
 // if (display.textContent.length >= 1)
+
+// add listener to percent
+const percent = document.querySelector(`#percent`);
+percent.addEventListener(`click`, () => {
+    const percentCalculated = Number(display.textContent) / 100;
+    console.log(percentCalculated);
+    display.textContent = percentCalculated;
+    if (percentCalculated.toString().length > 10 && percentCalculated < 1) {
+        display.textContent = percentCalculated.toExponential(4);
+        console.log(display.textContent);
+    }
+})
 
 
 
