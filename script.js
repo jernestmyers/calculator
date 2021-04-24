@@ -79,14 +79,6 @@ const calculatorObject = {
     errorThrown: false
 }
 
-function resetFromError() {
-    calculatorObject.numbers = [];
-    calculatorObject.operators = [];
-    calculatorObject.operatorSelected = false;
-    calculatorObject.equalsSelected = false;
-    calculatorObject.digitSelected = false;
-}
-
 // add listeners to digits
 const digits = document.querySelectorAll(`.digit`);
 const displayContainer = document.querySelector(`#display-container`);
@@ -151,7 +143,6 @@ operators.forEach((operators) => {
                 calculatorObject.errorThrown = true;
             }
         }
-        // console.log(`end of operators fxn: ${calculatorObject}`);
     })
 })
 
@@ -181,7 +172,6 @@ equalsButton.addEventListener(`click`, () => {
             calculatorObject.errorThrown = true;
         }
         calculatorObject.digitSelected = false;
-        // console.log(`end of equals fxn`)
         // console.log(calculatorObject);
     }
 })
@@ -243,7 +233,19 @@ percent.addEventListener(`click`, () => {
     }
 })
 
-
+// add listener to +/-
+const positiveNegative = document.querySelector(`#changeSign`);
+positiveNegative.addEventListener(`click`, () => {
+    const negative = `-`;
+    const numberDisplayed = display.textContent;
+    if (display.textContent !== `0` && display.textContent[0] !== `-`) {
+        display.textContent = negative.concat(``, numberDisplayed);
+        console.log(display.textContent);
+    } else if (display.textContent[0] === `-`) {
+        display.textContent = display.textContent.slice(1, (display.textContent.length));
+        console.log(display.textContent);
+    }
+})
 
 // CLEARED %%bug%% pressing a number, operator, then equals returns the number double in whatever operator selected. so 5, multiply, equals returns 25.
 // CLEARED %%bug%% program continues if user presses decimal for to produce "0." but should still require user to input another digit
