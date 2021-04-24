@@ -74,9 +74,10 @@ const calculatorObject = {
     operators: [],
     operatorSelected: false,
     equalsSelected: false,
-    decimalUsed: false,
     digitSelected: false,
-    errorThrown: false
+    errorThrown: false,
+    changeSign: false,
+    percentUsed: false
 }
 
 // add listeners to digits
@@ -113,16 +114,34 @@ const operators = document.querySelectorAll(`.operator`);
 operators.forEach((operators) => {
     operators.addEventListener(`click`, () => {
         if (calculatorObject.errorThrown === false && display.textContent !== `0.`) {
+            if (calculatorObject.percentUsed === true || calculatorObject.changeSign === true) {
+                if (calculatorObject.operators[0] !== undefined && calculatorObject.numbers[0] !== undefined) {
+                    // calculatorObject.numbers.push(Number(display.textContent));
+                    // calculatorObject.numbers[1] = Number(display.textContent);
+                    // display.textContent = operate(calculatorObject.numbers[0], calculatorObject.numbers[1], calculatorObject.operators[0]);
+                    // calculatorObject.numbers.shift();
+                    // calculatorObject.numbers[0] = Number(display.textContent);
+                    // calculatorObject.operators.push(operators.id);
+                    // calculatorObject.operators.shift();
+                    // calculatorObject.operatorSelected = true;
+                    // calculatorObject.equalsSelected = false;
+                    // calculatorObject.percentUsed = false;
+                    // calculatorObject.changeSign = false;
+                    console.log(`here?`);
+                } else if (calculatorObject.operators[0] === undefined && calculatorObject.numbers[0] !== undefined) {
+                    calculatorObject.numbers[0] = Number(display.textContent);
+                }
+            }
             if (calculatorObject.operators[0] === undefined && calculatorObject.equalsSelected === false) {
                 calculatorObject.numbers.push(Number(display.textContent));
                 calculatorObject.operators.push(operators.id);
                 calculatorObject.operatorSelected = true;
-                calculatorObject.decimalUsed = false;
+                calculatorObject.percentUsed = false;
+                calculatorObject.changeSign = false;
                 console.log(`first if in operator fxn`);
                 // console.log(calculatorObject);
             } else if (calculatorObject.operators[0] !== undefined && calculatorObject.numbers[0] !== undefined && calculatorObject.operatorSelected === false) {
                 calculatorObject.numbers.push(Number(display.textContent));
-                calculatorObject.decimalUsed = false;
                 display.textContent = operate(calculatorObject.numbers[0], calculatorObject.numbers[1], calculatorObject.operators[0]);
                 calculatorObject.numbers.shift();
                 calculatorObject.numbers[0] = Number(display.textContent);
@@ -130,11 +149,15 @@ operators.forEach((operators) => {
                 calculatorObject.operators.shift();
                 calculatorObject.operatorSelected = true;
                 calculatorObject.equalsSelected = false;
+                calculatorObject.percentUsed = false;
+                calculatorObject.changeSign = false;
                 console.log(`else if #1 in operator fxn`);
                 // console.log(calculatorObject);
             } else if (calculatorObject.operators[0] === undefined && calculatorObject.numbers[0] !== undefined) { // this else if works with the equals fxn
                 calculatorObject.operators.push(operators.id);
                 calculatorObject.operatorSelected = true;
+                calculatorObject.percentUsed = false;
+                calculatorObject.changeSign = false;
                 console.log(`else if #2 in operator fxn`);
                 // console.log(calculatorObject);
             }
@@ -152,19 +175,22 @@ equalsButton.addEventListener(`click`, () => {
     if (calculatorObject.errorThrown === false && display.textContent !== `0.`) {
         if (calculatorObject.numbers.length === 1 && calculatorObject.operators !== undefined && calculatorObject.equalsSelected === false && calculatorObject.digitSelected === true) {
             calculatorObject.numbers.push(Number(display.textContent));
-            calculatorObject.decimalUsed = false;
             display.textContent = operate(calculatorObject.numbers[0], calculatorObject.numbers[1], calculatorObject.operators[0]);
             calculatorObject.numbers.shift();
             calculatorObject.numbers[0] = Number(display.textContent);
             calculatorObject.operators.shift();
             calculatorObject.equalsSelected = true;
             calculatorObject.operatorSelected = false;
+            calculatorObject.percentUsed = false;
+            calculatorObject.changeSign = false;
             console.log(`first if in equals fxn`);
             // console.log(calculatorObject);
         } else if (calculatorObject.numbers.length === 2) {
             display.textContent = operate(calculatorObject.numbers[0], calculatorObject.numbers[1], calculatorObject.operators[0]);
             calculatorObject.numbers.shift();
             calculatorObject.numbers[0] = Number(display.textContent);
+            calculatorObject.percentUsed = false;
+            calculatorObject.changeSign = false;
             console.log(`else if in equals`);
             // console.log(calculatorObject);
         }
@@ -186,6 +212,8 @@ clearAll.addEventListener(`click`, () => {
     calculatorObject.equalsSelected = false;
     calculatorObject.digitSelected = false;
     calculatorObject.errorThrown = false;
+    calculatorObject.percentUsed = false;
+    calculatorObject.changeSign = false;
 })
 
 // add listener to decimal point
@@ -231,6 +259,7 @@ percent.addEventListener(`click`, () => {
         display.textContent = percentCalculated.toExponential(4);
         console.log(display.textContent);
     }
+    calculatorObject.percentUsed = true;
 })
 
 // add listener to +/-
@@ -245,7 +274,12 @@ positiveNegative.addEventListener(`click`, () => {
         display.textContent = display.textContent.slice(1, (display.textContent.length));
         console.log(display.textContent);
     }
+    calculatorObject.changeSign = true;
 })
 
 // CLEARED %%bug%% pressing a number, operator, then equals returns the number double in whatever operator selected. so 5, multiply, equals returns 25.
 // CLEARED %%bug%% program continues if user presses decimal for to produce "0." but should still require user to input another digit
+// %%bug%% when percent and changeSign is done after an operation the result is already pushed into the array, so need to replace the stored number with the updated number
+// does it actually make sense to be able to changeSign or add percent after pressing an operator? i think doing so after equals makes sense because an operator would then be pressed
+// afterwards, but i'm not sure it makes sense to be able to changeSign or add percent after doing the sequence 2+3-5 where 2+3 returns 5 upon pressing - and THEN you'd be changeing sign
+// or adding percent AFTER pressing the operator. i don't see a functional use for this.
