@@ -113,7 +113,7 @@ digits.forEach((digits) => {
 const operators = document.querySelectorAll(`.operator`);
 operators.forEach((operators) => {
     operators.addEventListener(`click`, () => {
-        if (calculatorObject.errorThrown === false && display.textContent !== `0.`) {
+        if (calculatorObject.errorThrown === false && display.textContent !== `0.` && display.textContent !== `-` && display.textContent !== `-0.`) {
             if (calculatorObject.percentUsed === true || calculatorObject.changeSign === true) {
                 if (calculatorObject.operators[0] !== undefined && calculatorObject.numbers[0] !== undefined) {
                     // calculatorObject.numbers.push(Number(display.textContent));
@@ -172,7 +172,7 @@ operators.forEach((operators) => {
 // add listener to equals sign
 const equalsButton = document.querySelector(`#equals`);
 equalsButton.addEventListener(`click`, () => {
-    if (calculatorObject.errorThrown === false && display.textContent !== `0.`) {
+    if (calculatorObject.errorThrown === false && display.textContent !== `0.` && display.textContent !== `-` && display.textContent !== `-0.`) {
         if (calculatorObject.numbers.length === 1 && calculatorObject.operators !== undefined && calculatorObject.equalsSelected === false && calculatorObject.digitSelected === true) {
             calculatorObject.numbers.push(Number(display.textContent));
             display.textContent = operate(calculatorObject.numbers[0], calculatorObject.numbers[1], calculatorObject.operators[0]);
@@ -252,29 +252,33 @@ backspace.addEventListener(`click`, () => {
 // add listener to percent
 const percent = document.querySelector(`#percent`);
 percent.addEventListener(`click`, () => {
-    const percentCalculated = Number(display.textContent) / 100;
-    console.log(percentCalculated);
-    display.textContent = percentCalculated;
-    if (percentCalculated.toString().length > 10 && percentCalculated < 1) {
-        display.textContent = percentCalculated.toExponential(4);
-        console.log(display.textContent);
+    if (calculatorObject.operatorSelected === false) {
+        const percentCalculated = Number(display.textContent) / 100;
+        console.log(percentCalculated);
+        display.textContent = percentCalculated;
+        if (percentCalculated.toString().length > 10 && percentCalculated < 1) {
+            display.textContent = percentCalculated.toExponential(4);
+            console.log(display.textContent);
+        }
+        calculatorObject.percentUsed = true;
     }
-    calculatorObject.percentUsed = true;
 })
 
 // add listener to +/-
 const positiveNegative = document.querySelector(`#changeSign`);
 positiveNegative.addEventListener(`click`, () => {
-    const negative = `-`;
-    const numberDisplayed = display.textContent;
-    if (display.textContent !== `0` && display.textContent[0] !== `-`) {
-        display.textContent = negative.concat(``, numberDisplayed);
-        console.log(display.textContent);
-    } else if (display.textContent[0] === `-`) {
-        display.textContent = display.textContent.slice(1, (display.textContent.length));
-        console.log(display.textContent);
+    if (calculatorObject.operatorSelected === false) {
+        const negative = `-`;
+        const numberDisplayed = display.textContent;
+        if (display.textContent !== `0` && display.textContent[0] !== `-`) {
+            display.textContent = negative.concat(``, numberDisplayed);
+            console.log(display.textContent);
+        } else if (display.textContent[0] === `-`) {
+            display.textContent = display.textContent.slice(1, (display.textContent.length));
+            console.log(display.textContent);
+        }
+        calculatorObject.changeSign = true;
     }
-    calculatorObject.changeSign = true;
 })
 
 // CLEARED %%bug%% pressing a number, operator, then equals returns the number double in whatever operator selected. so 5, multiply, equals returns 25.
