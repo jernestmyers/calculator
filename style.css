@@ -38,3 +38,7 @@ button {
     width: 85px;
     font-size: 30px;
 }
+
+.activeOperator {
+    background-color: red;
+}

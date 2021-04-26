@@ -114,7 +114,7 @@ const operators = document.querySelectorAll(`.operator`);
 operators.forEach((operators) => {
     operators.addEventListener(`click`, () => {
         if (calculatorObject.errorThrown === false && display.textContent !== `0.` && display.textContent !== `-` && display.textContent !== `-0.`) {
-            if (calculatorObject.percentUsed === true || calculatorObject.changeSign === true) {
+            if (calculatorObject.percentUsed === true || calculatorObject.changeSign === true) { // allows user to change sign or convert percent to decimal after a return using equals fxn
                 if (calculatorObject.operators[0] === undefined && calculatorObject.numbers[0] !== undefined) {
                     calculatorObject.numbers[0] = Number(display.textContent);
                 }
@@ -263,6 +263,24 @@ positiveNegative.addEventListener(`click`, () => {
     }
 })
 
+// how to toggle operator selection to make clear which operator is selected, especially since as of now user cannot change operation?
+operators.forEach((operators) => {
+    operators.addEventListener(`click`, (e) => {
+        const operatorStored = operators.id;
+        console.log(operatorStored);
+        if (operatorStored === calculatorObject.operators[0]) {
+            operators.classList.toggle(`activeOperator`);
+        } else {
+            operators.classList.remove(`activeOperator`);
+        }
+    })
+})
+
+
+
+
+
+
 // CLEARED %%bug%% pressing a number, operator, then equals returns the number double in whatever operator selected. so 5, multiply, equals returns 25.
 // CLEARED %%bug%% program continues if user presses decimal for to produce "0." but should still require user to input another digit
 // CLEARED %%bug%% when percent and changeSign is done after an operation the result is already pushed into the array, so need to replace the stored number with the updated number
@@ -270,4 +288,4 @@ positiveNegative.addEventListener(`click`, () => {
 // afterwards, but i'm not sure it makes sense to be able to changeSign or add percent after doing the sequence 2+3-5 where 2+3 returns 5 upon pressing - and THEN you'd be changeing sign
 // or adding percent AFTER pressing the operator. i don't see a functional use for this.
 // ^^^^^^^^^^^^^^^^^^^ i allow a sign change and percent conversion after an equals operation, i do not allow user to change sign or convert percent after an operation return
-// %%bug%% when testing something like 3% - 2 i get a very long decimal with a lot of extraneous zeroes that pushes past display container; have not been able to repeat it yet...
+// %%bug%% when testing something like 3% - 2 i get a very long decimal with a lot of extraneous zeroes that pushes past display container; have not been able to repeat it yet
