@@ -115,20 +115,7 @@ operators.forEach((operators) => {
     operators.addEventListener(`click`, () => {
         if (calculatorObject.errorThrown === false && display.textContent !== `0.` && display.textContent !== `-` && display.textContent !== `-0.`) {
             if (calculatorObject.percentUsed === true || calculatorObject.changeSign === true) {
-                if (calculatorObject.operators[0] !== undefined && calculatorObject.numbers[0] !== undefined) {
-                    // calculatorObject.numbers.push(Number(display.textContent));
-                    // calculatorObject.numbers[1] = Number(display.textContent);
-                    // display.textContent = operate(calculatorObject.numbers[0], calculatorObject.numbers[1], calculatorObject.operators[0]);
-                    // calculatorObject.numbers.shift();
-                    // calculatorObject.numbers[0] = Number(display.textContent);
-                    // calculatorObject.operators.push(operators.id);
-                    // calculatorObject.operators.shift();
-                    // calculatorObject.operatorSelected = true;
-                    // calculatorObject.equalsSelected = false;
-                    // calculatorObject.percentUsed = false;
-                    // calculatorObject.changeSign = false;
-                    console.log(`here?`);
-                } else if (calculatorObject.operators[0] === undefined && calculatorObject.numbers[0] !== undefined) {
+                if (calculatorObject.operators[0] === undefined && calculatorObject.numbers[0] !== undefined) {
                     calculatorObject.numbers[0] = Number(display.textContent);
                 }
             }
@@ -243,11 +230,6 @@ backspace.addEventListener(`click`, () => {
         console.log(display.textContent);
     }
 })
-// cannot allow user to delete everything and still be able to use equals sign or operator
-// because then it will push nothing to the array and potentially run operate fxn
-// to prevent this, could check length of display.textContent
-// minimum length of textContent is 1 for integers but 3 for decimals less than one, like 0.5
-// if (display.textContent.length >= 1)
 
 // add listener to percent
 const percent = document.querySelector(`#percent`);
@@ -283,7 +265,9 @@ positiveNegative.addEventListener(`click`, () => {
 
 // CLEARED %%bug%% pressing a number, operator, then equals returns the number double in whatever operator selected. so 5, multiply, equals returns 25.
 // CLEARED %%bug%% program continues if user presses decimal for to produce "0." but should still require user to input another digit
-// %%bug%% when percent and changeSign is done after an operation the result is already pushed into the array, so need to replace the stored number with the updated number
+// CLEARED %%bug%% when percent and changeSign is done after an operation the result is already pushed into the array, so need to replace the stored number with the updated number
 // does it actually make sense to be able to changeSign or add percent after pressing an operator? i think doing so after equals makes sense because an operator would then be pressed
 // afterwards, but i'm not sure it makes sense to be able to changeSign or add percent after doing the sequence 2+3-5 where 2+3 returns 5 upon pressing - and THEN you'd be changeing sign
 // or adding percent AFTER pressing the operator. i don't see a functional use for this.
+// ^^^^^^^^^^^^^^^^^^^ i allow a sign change and percent conversion after an equals operation, i do not allow user to change sign or convert percent after an operation return
+// %%bug%% when testing something like 3% - 2 i get a very long decimal with a lot of extraneous zeroes that pushes past display container; have not been able to repeat it yet...
