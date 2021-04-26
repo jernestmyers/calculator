@@ -264,13 +264,21 @@ positiveNegative.addEventListener(`click`, () => {
 })
 
 // how to toggle operator selection to make clear which operator is selected, especially since as of now user cannot change operation?
+const operatorArray = Array.from(operators);
+let operatorIndex;
 operators.forEach((operators) => {
-    operators.addEventListener(`click`, (e) => {
-        const operatorStored = operators.id;
-        console.log(operatorStored);
-        if (operatorStored === calculatorObject.operators[0]) {
-            operators.classList.toggle(`activeOperator`);
-        } else {
+    operators.addEventListener(`click`, () => {
+//         const operatorStored = operators.id;
+//         console.log(operatorStored);
+// function operatorToggle(operatorStored) {
+    // const operatorStored = operators.id;
+        console.log(operators.id);
+        console.log(operatorArray.indexOf(operators));
+        operatorIndex = operatorArray.indexOf(operators);
+        console.log(operatorIndex);
+        if (operators.id === calculatorObject.operators[0]) {
+            operators.classList.add(`activeOperator`);
+        } else if (operators.id !== calculatorObject.operators[0]) {
             operators.classList.remove(`activeOperator`);
         }
     })
