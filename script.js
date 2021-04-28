@@ -77,7 +77,11 @@ const calculatorObject = {
     digitSelected: false,
     errorThrown: false,
     changeSign: false,
-    percentUsed: false
+    percentUsed: false,
+    multiplyStored: false,
+    addStored: false,
+    divideStored: false,
+    subtractStored: false
 }
 
 // add listeners to digits
@@ -153,6 +157,7 @@ operators.forEach((operators) => {
                 calculatorObject.errorThrown = true;
             }
         }
+        toggleOperatorSelection();
     })
 })
 
@@ -187,6 +192,7 @@ equalsButton.addEventListener(`click`, () => {
         calculatorObject.digitSelected = false;
         // console.log(calculatorObject);
     }
+    toggleOperatorSelection();
 })
 
 // add listener to clear all button
@@ -201,6 +207,7 @@ clearAll.addEventListener(`click`, () => {
     calculatorObject.errorThrown = false;
     calculatorObject.percentUsed = false;
     calculatorObject.changeSign = false;
+    toggleOperatorSelection();
 })
 
 // add listener to decimal point
@@ -283,6 +290,61 @@ operators.forEach((operators) => {
         }
     })
 })
+
+const multiplyButton = document.querySelector(`#multiply`);
+const addButton = document.querySelector(`#add`);
+const divideButton = document.querySelector(`#divide`);
+const subtractButton = document.querySelector(`#subtract`);
+function toggleOperatorSelection() {
+    // if (calculatorObject.numbers[0] !== undefined) {
+        if (calculatorObject.operators[0] === undefined) {
+            calculatorObject.multiplyStored = false;
+            calculatorObject.addStored = false;
+            calculatorObject.divideStored = false;
+            calculatorObject.subtractStored = false;
+            multiplyButton.classList.remove(`activeOperator`);
+            addButton.classList.remove(`activeOperator`);
+            divideButton.classList.remove(`activeOperator`);
+            subtractButton.classList.remove(`activeOperator`);
+        } else if (calculatorObject.operators[0] === `multiply`) {
+            calculatorObject.multiplyStored = true;
+            calculatorObject.addStored = false;
+            calculatorObject.divideStored = false;
+            calculatorObject.subtractStored = false;
+            multiplyButton.classList.add(`activeOperator`);
+            addButton.classList.remove(`activeOperator`);
+            divideButton.classList.remove(`activeOperator`);
+            subtractButton.classList.remove(`activeOperator`);
+        } else if (calculatorObject.operators[0] === `add`) {
+            calculatorObject.multiplyStored = false;
+            calculatorObject.addStored = true;
+            calculatorObject.divideStored = false;
+            calculatorObject.subtractStored = false;
+            multiplyButton.classList.remove(`activeOperator`);
+            addButton.classList.add(`activeOperator`);
+            divideButton.classList.remove(`activeOperator`);
+            subtractButton.classList.remove(`activeOperator`);
+        } else if (calculatorObject.operators[0] === `divide`) {
+            calculatorObject.multiplyStored = false;
+            calculatorObject.addStored = false;
+            calculatorObject.divideStored = true;
+            calculatorObject.subtractStored = false;
+            multiplyButton.classList.remove(`activeOperator`);
+            addButton.classList.remove(`activeOperator`);
+            divideButton.classList.add(`activeOperator`);
+            subtractButton.classList.remove(`activeOperator`);
+        } else if (calculatorObject.operators[0] === `subtract`) {
+            calculatorObject.multiplyStored = false;
+            calculatorObject.addStored = false;
+            calculatorObject.divideStored = false;
+            calculatorObject.subtractStored = true;
+            multiplyButton.classList.remove(`activeOperator`);
+            addButton.classList.remove(`activeOperator`);
+            divideButton.classList.remove(`activeOperator`);
+            subtractButton.classList.add(`activeOperator`);
+        }
+    // }
+}
 
 
 
