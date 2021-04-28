@@ -3,6 +3,17 @@ function add(array) {
     const sum = array.reduce((total,num) => {
         return total + num;
     }, 0);
+    const sumCheck = sum.toString();
+    if (sumCheck.length > 10 && sum < 1) {
+        console.log(`first if`);
+        return sum.toExponential(4);
+    } else if (sumCheck.length > 10 && sum > 99999) {
+        console.log(`second if`);
+        return sum.toExponential(4);
+    } else if (sumCheck.length > 10 && sum < 99999) {
+        console.log(`third if`);
+        return sum.toFixed(5);
+    }
     return sum;
 }
 
@@ -11,6 +22,14 @@ function subtract(array) {
     const difference = array.reduce((total,num) => {
         return total - num;
     });
+    const differenceCheck = difference.toString();
+    if (differenceCheck.length > 10 && difference < 1) {
+        return difference.toExponential(4); 
+    } else if (differenceCheck.length > 10 && difference > 99999) {
+        return difference.toExponential(4);
+    } else if (differenceCheck.length > 10 && difference < 99999) {
+        return difference.toFixed(5);
+    }
     return difference;
 }
 
@@ -270,27 +289,9 @@ positiveNegative.addEventListener(`click`, () => {
     }
 })
 
-// how to toggle operator selection to make clear which operator is selected, especially since as of now user cannot change operation?
-const operatorArray = Array.from(operators);
-let operatorIndex;
-operators.forEach((operators) => {
-    operators.addEventListener(`click`, () => {
-//         const operatorStored = operators.id;
-//         console.log(operatorStored);
-// function operatorToggle(operatorStored) {
-    // const operatorStored = operators.id;
-        console.log(operators.id);
-        console.log(operatorArray.indexOf(operators));
-        operatorIndex = operatorArray.indexOf(operators);
-        console.log(operatorIndex);
-        if (operators.id === calculatorObject.operators[0]) {
-            operators.classList.add(`activeOperator`);
-        } else if (operators.id !== calculatorObject.operators[0]) {
-            operators.classList.remove(`activeOperator`);
-        }
-    })
-})
 
+// this toggles the operator buttons to notify user which operation is stored
+// user cannot change operation after pressing the button
 const multiplyButton = document.querySelector(`#multiply`);
 const addButton = document.querySelector(`#add`);
 const divideButton = document.querySelector(`#divide`);
@@ -346,11 +347,6 @@ function toggleOperatorSelection() {
     // }
 }
 
-
-
-
-
-
 // CLEARED %%bug%% pressing a number, operator, then equals returns the number double in whatever operator selected. so 5, multiply, equals returns 25.
 // CLEARED %%bug%% program continues if user presses decimal for to produce "0." but should still require user to input another digit
 // CLEARED %%bug%% when percent and changeSign is done after an operation the result is already pushed into the array, so need to replace the stored number with the updated number
@@ -358,4 +354,5 @@ function toggleOperatorSelection() {
 // afterwards, but i'm not sure it makes sense to be able to changeSign or add percent after doing the sequence 2+3-5 where 2+3 returns 5 upon pressing - and THEN you'd be changeing sign
 // or adding percent AFTER pressing the operator. i don't see a functional use for this.
 // ^^^^^^^^^^^^^^^^^^^ i allow a sign change and percent conversion after an equals operation, i do not allow user to change sign or convert percent after an operation return
-// %%bug%% when testing something like 3% - 2 i get a very long decimal with a lot of extraneous zeroes that pushes past display container; have not been able to repeat it yet
+// CLEARED %%bug%% when testing something like 3% - 2 i get a very long decimal with a lot of extraneous zeroes that pushes past display container; have not been able to repeat it yet
+// %%bug%% must not allow user to input over 10 digits; need to consider the decimal and percent buttons as well. can set a general conditional if display.textContent < 10
