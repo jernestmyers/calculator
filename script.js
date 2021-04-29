@@ -302,13 +302,3 @@ function toggleOperatorSelection() {
             subtractButton.classList.add(`activeOperator`);
         }
 }
-
-// CLEARED %%bug%% pressing a number, operator, then equals returns the number double in whatever operator selected. so 5, multiply, equals returns 25.
-// CLEARED %%bug%% program continues if user presses decimal for to produce "0." but should still require user to input another digit
-// CLEARED %%bug%% when percent and changeSign is done after an operation the result is already pushed into the array, so need to replace the stored number with the updated number
-// does it actually make sense to be able to changeSign or add percent after pressing an operator? i think doing so after equals makes sense because an operator would then be pressed
-// afterwards, but i'm not sure it makes sense to be able to changeSign or add percent after doing the sequence 2+3-5 where 2+3 returns 5 upon pressing - and THEN you'd be changeing sign
-// or adding percent AFTER pressing the operator. i don't see a functional use for this.
-// ^^^^^^^^^^^^^^^^^^^ i allow a sign change and percent conversion after an equals operation, i do not allow user to change sign or convert percent after an operation return
-// CLEARED %%bug%% when testing something like 3% - 2 i get a very long decimal with a lot of extraneous zeroes that pushes past display container; have not been able to repeat it yet
-// CLEARED must not allow user to input over 10 digits; need to consider the decimal and percent buttons as well. can set a general conditional if display.textContent < 10

@@ -1,34 +1,36 @@
 .calculator-container {
     display: grid;
     margin: auto;
-    height: 500px;
+    padding: 25px 5px 10px 5px;
+    height: 550px;
     width: 400px;
-    border: 1px solid black;
-    background-color: yellow;
+    border: 4px solid black;
+    background-color: rgb(41, 41, 155);
+    border-radius: 10px;
 }
 
 p {
     margin: 0px 0px;
-    font-size: 60px;
+    font-size: 50px;
 }
 
 #display-container {
     text-align: right;
-    line-height: 150px;
+    line-height: 100px;
+    padding-bottom: 10px;
 }
 
 #display {
     margin: auto;
     width: 95%;
-    height: 100px;
-    background-color: gray;
-    border: 1px solid black;
+    height: 80px;
+    background-color: rgb(194, 194, 194);
+    border-radius: 5px;
 }
 
 .button-rows {
     display: flex;
     justify-content: space-evenly;
-    border: 1px solid black;
     width: 100%;
     height: 75px;
 }
@@ -37,8 +39,23 @@ button {
     height: 75px;
     width: 85px;
     font-size: 30px;
+    border-radius: 10px;
+}
+
+button:active {
+    background-color:rgb(255, 132, 132);
+}
+
+.digit {
+    background-color: white;
+}
+
+.nonDigits {
+    background-color: red;
+    color: white;
 }
 
 .activeOperator {
-    background-color: red;
+    background-color: rgb(255, 132, 132);
+    color: white;
 }
