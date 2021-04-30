@@ -4,11 +4,11 @@ function add(array) {
         return total + num;
     }, 0);
     const sumCheck = sum.toString();
-    if (sumCheck.length > 10 && sum < 1) {
+    if (sumCheck.length > 15 && sum < 1) {
         return sum.toExponential(4);
-    } else if (sumCheck.length > 10 && sum > 99999) {
+    } else if (sumCheck.length > 15 && sum > 99999) {
         return sum.toExponential(4);
-    } else if (sumCheck.length > 10 && sum < 99999) {
+    } else if (sumCheck.length > 15 && sum < 99999) {
         return sum.toFixed(5);
     }
     return sum;
@@ -20,11 +20,11 @@ function subtract(array) {
         return total - num;
     });
     const differenceCheck = difference.toString();
-    if (differenceCheck.length > 10 && difference < 1) {
+    if (differenceCheck.length > 15 && difference < 1) {
         return difference.toExponential(4); 
-    } else if (differenceCheck.length > 10 && difference > 99999) {
+    } else if (differenceCheck.length > 15 && difference > 99999) {
         return difference.toExponential(4);
-    } else if (differenceCheck.length > 10 && difference < 99999) {
+    } else if (differenceCheck.length > 15 && difference < 99999) {
         return difference.toFixed(5);
     }
     return difference;
@@ -39,11 +39,11 @@ function divide(array) {
         return total / num;
     });
     const quotientCheck = quotient.toString();
-    if (quotientCheck.length > 10 && quotient < 1) {
+    if (quotientCheck.length > 15 && quotient < 1) {
         return quotient.toExponential(4); 
-    } else if (quotientCheck.length > 10 && quotient > 99999) {
+    } else if (quotientCheck.length > 15 && quotient > 99999) {
         return quotient.toExponential(4);
-    } else if (quotientCheck.length > 10 && quotient < 99999) {
+    } else if (quotientCheck.length > 15 && quotient < 99999) {
         return quotient.toFixed(5);
     }
     return quotient;
@@ -55,7 +55,7 @@ function multiply(array) {
         return total * num;
     }, 1);
     const productCheck = product.toString();
-    if (productCheck.length > 10) {
+    if (productCheck.length > 15) {
         return product.toExponential(4);
     }
     return product;
@@ -110,7 +110,7 @@ digits.forEach((digits) => {
             calculatorObject.operatorSelected = false;
             calculatorObject.digitSelected = true;
             calculatorObject.equalsSelected = false;
-                if (display.textContent.length < 10) {
+                if (display.textContent.length < 15) {
                     display.textContent += digits.id;
                 }
             displayContainer.appendChild(display);
