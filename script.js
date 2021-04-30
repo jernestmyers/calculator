@@ -110,7 +110,7 @@ digits.forEach((digits) => {
             calculatorObject.operatorSelected = false;
             calculatorObject.digitSelected = true;
             calculatorObject.equalsSelected = false;
-                if (display.textContent.length < 15) {
+                if (display.textContent.length < 14) {
                     display.textContent += digits.id;
                 }
             displayContainer.appendChild(display);
