@@ -67,20 +67,24 @@ button:active {
     .calculator-container {
         height: auto;
         width: 90vw;
+        padding: 1.5vw 0.3vw 0.6vw 0.3vw;
+        border: 1vw solid rgb(41, 41, 155);
+        border-radius: 2vw;
     }
 
     p {
-        font-size: 5vw;
+        font-size: 10vw;
     }
 
     button {
-        height: 18vw;
+        height: 16vw;
         width: 18vw;
-        font-size: 9vw;
+        font-size: 7vw;
     }
     
     #display-container {
-        line-height: 100vw;
+        line-height: 22.5vw;
+        padding-bottom: 4vw;
     }
     
     #display {
