@@ -4,11 +4,11 @@ function add(array) {
         return total + num;
     }, 0);
     const sumCheck = sum.toString();
-    if (sumCheck.length > 15 && sum < 1) {
+    if (sumCheck.length > 13 && sum < 1) {
         return sum.toExponential(4);
-    } else if (sumCheck.length > 15 && sum > 99999) {
+    } else if (sumCheck.length > 13 && sum > 99999) {
         return sum.toExponential(4);
-    } else if (sumCheck.length > 15 && sum < 99999) {
+    } else if (sumCheck.length > 13 && sum < 99999) {
         return sum.toFixed(5);
     }
     return sum;
@@ -20,11 +20,11 @@ function subtract(array) {
         return total - num;
     });
     const differenceCheck = difference.toString();
-    if (differenceCheck.length > 15 && difference < 1) {
+    if (differenceCheck.length > 13 && difference < 1) {
         return difference.toExponential(4); 
-    } else if (differenceCheck.length > 15 && difference > 99999) {
+    } else if (differenceCheck.length > 13 && difference > 99999) {
         return difference.toExponential(4);
-    } else if (differenceCheck.length > 15 && difference < 99999) {
+    } else if (differenceCheck.length > 13 && difference < 99999) {
         return difference.toFixed(5);
     }
     return difference;
@@ -39,11 +39,11 @@ function divide(array) {
         return total / num;
     });
     const quotientCheck = quotient.toString();
-    if (quotientCheck.length > 15 && quotient < 1) {
+    if (quotientCheck.length > 13 && quotient < 1) {
         return quotient.toExponential(4); 
-    } else if (quotientCheck.length > 15 && quotient > 99999) {
+    } else if (quotientCheck.length > 13 && quotient > 99999) {
         return quotient.toExponential(4);
-    } else if (quotientCheck.length > 15 && quotient < 99999) {
+    } else if (quotientCheck.length > 13 && quotient < 99999) {
         return quotient.toFixed(5);
     }
     return quotient;
@@ -55,7 +55,7 @@ function multiply(array) {
         return total * num;
     }, 1);
     const productCheck = product.toString();
-    if (productCheck.length > 15) {
+    if (productCheck.length > 13) {
         return product.toExponential(4);
     }
     return product;
@@ -225,7 +225,7 @@ percent.addEventListener(`click`, () => {
     if (calculatorObject.operatorSelected === false) {
         const percentCalculated = Number(display.textContent) / 100;
         display.textContent = percentCalculated;
-        if (percentCalculated.toString().length > 10 && percentCalculated < 1) {
+        if (percentCalculated.toString().length > 12 && percentCalculated < 1) {
             display.textContent = percentCalculated.toExponential(4);
         }
         calculatorObject.percentUsed = true;
