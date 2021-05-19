@@ -1,4 +1,3 @@
-// attempting to merge
 // add function
 function add(array) {
     const sum = array.reduce((total,num) => {
