@@ -4,25 +4,6 @@ function add(array) {
         return total + num;
     }, 0);
     const result = checkAndFormatResult(sum);
-    // const sumCheck = sum.toString();
-    // if (sumCheck.length > 13 && sum < 1) {
-    //     return sum.toExponential(4);
-    // } else if (sumCheck.length > 13 && sum > 99999) {
-    //     return sum.toExponential(4);
-    // } else if (sumCheck.length > 13 && sum < 99999) {
-    //     return sum.toFixed(5);
-    // }
-    return result;
-}
-function checkAndFormatResult(result) {
-    const resultCheck = result.toString();
-    if (resultCheck.length > calculatorObject.maxDisplayLength && result < 1) {
-        return result.toExponential(4);
-    } else if (resultCheck.length > calculatorObject.maxDisplayLength && result > 99999) {
-        return result.toExponential(4);
-    } else if (resultCheck.length > calculatorObject.maxDisplayLength && result < 99999) {
-        return result.toFixed(5);
-    }
     return result;
 }
 
@@ -32,14 +13,6 @@ function subtract(array) {
         return total - num;
     });
     const result = checkAndFormatResult(difference);
-    // const differenceCheck = difference.toString();
-    // if (differenceCheck.length > 13 && difference < 1) {
-    //     return difference.toExponential(4); 
-    // } else if (differenceCheck.length > 13 && difference > 99999) {
-    //     return difference.toExponential(4);
-    // } else if (differenceCheck.length > 13 && difference < 99999) {
-    //     return difference.toFixed(5);
-    // }
     return result;
 }
 
@@ -52,14 +25,6 @@ function divide(array) {
         return total / num;
     });
     const result = checkAndFormatResult(quotient);
-    // const quotientCheck = quotient.toString();
-    // if (quotientCheck.length > 13 && quotient < 1) {
-    //     return quotient.toExponential(4); 
-    // } else if (quotientCheck.length > 13 && quotient > 99999) {
-    //     return quotient.toExponential(4);
-    // } else if (quotientCheck.length > 13 && quotient < 99999) {
-    //     return quotient.toFixed(5);
-    // }
     return result;
 }
 
@@ -69,10 +34,18 @@ function multiply(array) {
         return total * num;
     }, 1);
     const result = checkAndFormatResult(product);
-    // const productCheck = product.toString();
-    // if (productCheck.length > 13) {
-    //     return product.toExponential(4);
-    // }
+    return result;
+}
+
+function checkAndFormatResult(result) {
+    const resultCheck = result.toString();
+    if (resultCheck.length > calculatorObject.maxDisplayLength && result < 1) {
+        return result.toExponential(4);
+    } else if (resultCheck.length > calculatorObject.maxDisplayLength && result > 99999) {
+        return result.toExponential(4);
+    } else if (resultCheck.length > calculatorObject.maxDisplayLength && result < 99999) {
+        return result.toFixed(5);
+    }
     return result;
 }
 
